@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Compravante</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body class="min-vh-100 min-vw-100 overflow-hidden">
+    <header>
+      <!-- place navbar here -->
+      <header>
+        <nav
+          class="navbar navbar-expand-lg bg-body-tertiary w-100 d-flex align-items-center"
+        >
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img
+                src="https://api.senacrs.com.br/bff/site-senac/v1/file/078f143692e591ec20623efea089cdf3d19a24.png"
+                alt="logo"
+                height="45px"
+              />
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a
+                    class="nav-link link-primary active"
+                    aria-current="page"
+                    href="#"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-primary" href="./contact.html"
+                    >Contato</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-primary" href="./about.html">Sobre</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+    </header>
+    <main
+      class="d-flex align-content-center justify-content-center min-vh-100 min-vw-100"
+    >
+      <div
+        class="container d-flex align-content-center justify-content-center min-vh-100 min-vw-100 mt-5 mb-5"
+      >
+        <div
+          class="card d-flex align-items-center justify-content-center"
+          style="width: 80rem; height: 60rem"
+        >
+          <div class="card-body">
+            <h2 class="card-title text-center">Comprovante de pedido</h2>
+            <p class="fs-4" id="nome"></p>
+            <ul class="fs-4">
+              Lanche selecionado:
+            </ul class="fs-4">
+            <li class="fs-4" id="lanches"></li>
+
+            <ul class="fs-4">
+              Bebida selecionada:
+            </ul>
+            <li class="fs-4" id="bebidas"></li>
+
+            <ul class="fs-4">
+              Acessório selecionado
+            </ul>
+            <li class="fs-4" id="acessorios"></li>
+
+            <p class="fs-4">Saldo:</p>
+            <p  class="fs-4"id="saldo"></p>
+
+            <p class="fs-4">Total:</p>
+            <p class="fs-4" id="total"></p>
+            <p class="fs-4">Saldo Atual:</p>
+            <p class="fs-4" id="saldoAtual"></p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+
+        const nomeCliente = params.get("nomeCliente");
+        const saldoCartao = parseFloat(params.get("saldoCartao"));
+        const total = parseFloat(params.get("total"));
+        const saldoAtual = parseFloat(params.get("saldoAtual"));
+        const valorLanches = parseFloat(params.get("valorLanches"));
+        const valorBebidas = parseFloat(params.get("valorBebidas"));
+        const valorAcessorios = parseFloat(params.get("valorAcessorios"));
+
+        document.getElementById("nome").textContent = nomeCliente;
+        document.getElementById("saldo").textContent = saldoCartao.toFixed(2);
+        document.getElementById("total").textContent = total.toFixed(2);
+        document.getElementById("saldoAtual").textContent =
+          saldoAtual.toFixed(2);
+
+        document.getElementById("lanches").textContent =
+          valorLanches.toFixed(2);
+        document.getElementById("bebidas").textContent =
+          valorBebidas.toFixed(2);
+        document.getElementById("acessorios").textContent =
+          valorAcessorios.toFixed(2);
+      };
+    </script>
+  </body>
+</html>

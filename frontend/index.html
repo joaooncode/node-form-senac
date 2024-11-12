@@ -8,9 +8,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     />
+    <!--FavIcons-->
+    <link rel="shortcut icon" href="../beer.png" sizes="32x32" type="img/png" />
     <!--CSS-->
     <link rel="stylesheet" href="../css/style.css" />
-    <title>Formulário Senac-RS | NodeJS</title>
+    <title>Comanda de Consumo Oktoberfest | NodeJS</title>
   </head>
   <body class="min-vw-100 min-vh-100 overflow-hidden">
     <header>
@@ -66,32 +68,131 @@
       <div
         class="container w-100 h-100 d-flex align-items-center justify-content-center flex-collum"
       >
-        <form action="" class="w-100 h-100">
+        <form action="receipt.html" class="w-100 h-100" method="post" id="form">
+          <!--Input saldo do cartão-->
           <div class="mb-3">
-            <label for="nameInput" class="form-label">Nome</label>
+            <label
+              for="saldoCartão"
+              class="form-label fs-4 text-primary fw-semibold"
+              >Saldo do Cartão</label
+            >
+            <input
+              type="number"
+              class="form-control form-control-lg w-50"
+              id="saldoCartao"
+              placeholder="R$"
+              max="1000"
+              min="0"
+              step="0.01"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <!--Fim Input saldo do cartão-->
+
+          <!--Input nome do cliente-->
+          <div class="mb-3">
+            <label
+              for="nomeCliente"
+              class="form-label fs-4 text-primary fw-semibold"
+              >Nome do Cliente</label
+            >
             <input
               type="text"
               class="form-control form-control-lg w-50"
-              id="nameInput"
-              placeholder="Informe seu nome completo"
+              id="nomeCliente"
+              placeholder="Informe seu nome completo aqui"
+              min="2"
               required
+              autocomplete="off"
             />
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">E-mail</label>
-            <input
-              type="email"
-              class="form-control form-control-lg w-50"
-              id="email"
-              placeholder="example@gmail.com"
-              required
-            />
-          </div>
-          <button type="submit" class="btn btn-outline-primary">Enviar</button>
+          <!--Fim Input nome do cliente-->
+
+          <!--Select lanches-->
+          <p class="mt-4 fs-4 text-primary fw-semibold">
+            Selecione seu lanche:
+          </p>
+          <select class="form-select w-50 form-select-lg mb-4" id="lanches">
+            <option value="7">Pastel - R$ 7,00</option>
+            <option value="15">Cachorro-Quente - R$ 15,00</option>
+            <option value="12">Cuca - R$ 12,00</option>
+          </select>
+          <!--Fim Select lanches-->
+
+          <!--Select bebidas-->
+          <p class="mb-4 fs-4 text-primary fw-semibold">
+            Selecione sua bebida:
+          </p>
+          <select class="form-select w-50 form-select-lg mb-4" id="bebidas">
+            <option value="5">Suco - R$ 5,00</option>
+            <option value="8">Refrigerante - R$ 8,00</option>
+            <option value="14">Chopp - R$ 14,00</option>
+          </select>
+          <!--Fim Select bebidas-->
+
+          <!--Select acessórios-->
+          <p class="mb-4 fs-4 text-primary fw-semibold">
+            Selecione seus acessórios:
+          </p>
+          <select class="form-select w-50 form-select-lg mb-4" id="acessorios">
+            <option value="5">Camiseta - R$ 40,00</option>
+            <option value="8">Caneca de Chopp - R$ 55,00</option>
+            <option value="14">Chapéu - R$ 35,00</option>
+          </select>
+          <!--Fim Select acessórios-->
+
+          <button
+            type="submit"
+            onclick="recibo()"
+            class="btn btn-outline-success btn-lg mt-4"
+            id="btn"
+          >
+            Finalizar pedido
+          </button>
         </form>
       </div>
     </main>
     <!--Bootstrap 5 js-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--funcionalidade JS-->
+    <script type="text/javascript">
+      function recibo() {
+        // Obtendo os valores dos campos
+        const nomeCliente = document.getElementById("nomeCliente").value;
+        const saldoCartao = parseFloat(
+          document.getElementById("saldoCartao").value
+        );
+        const valorLanches =
+          parseFloat(document.getElementById("lanches").value) || 0;
+        const valorBebidas =
+          parseFloat(document.getElementById("bebidas").value) || 0;
+        const valorAcessorios =
+          parseFloat(document.getElementById("acessorios").value) || 0;
+
+        // Calculando totais
+        const total = valorLanches + valorBebidas + valorAcessorios;
+        const saldoAtual = saldoCartao - total;
+
+        // Verificação de saldo
+        if (saldoCartao < total) {
+          alert("Saldo Insuficiente");
+          return; // Encerra a função se não houver saldo
+        }
+
+        // Abrindo nova página e passando parâmetros via URL
+        const params = new URLSearchParams({
+          nomeCliente: nomeCliente,
+          saldoCartao: saldoCartao,
+          total: total,
+          saldoAtual: saldoAtual,
+          valorLanches: valorLanches,
+          valorBebidas: valorBebidas,
+          valorAcessorios: valorAcessorios,
+        });
+
+        const paginaRecibo = window.open(`./receipt.html?${params.toString()}`);
+      }
+    </script>
   </body>
 </html>
